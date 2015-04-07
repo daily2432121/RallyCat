@@ -30,7 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentData">
+      <HintPath>..\packages\FluentData.3.0.1.0\lib\FluentData.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,7 +44,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Configuration\RallyConfigurationSection.cs" />
+    <Compile Include="Configuration\RallyGlobalConfiguration.cs" />
+    <Compile Include="Configuration\RallyProjectCollection.cs" />
+    <Compile Include="Interfaces\IRallySlackMappingRepository.cs" />
+    <Compile Include="DataAccess\RallySlackMappingRepository.cs" />
+    <Compile Include="Interfaces\IRallyGlobalConfigurationRepository.cs" />
+    <Compile Include="DataAccess\RallyCatDbContext.cs" />
+    <Compile Include="DataAccess\RallyGlobalConfigurationRepository.cs" />
+    <Compile Include="DataAccess\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rally\RallySlackMapping.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

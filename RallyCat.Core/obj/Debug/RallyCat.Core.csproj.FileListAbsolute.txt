@@ -3,3 +3,4 @@ C:\Users\cheng\Documents\RallyCat\RallyCat.Core\bin\Debug\RallyCat.Core.pdb
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core\obj\Debug\RallyCat.Core.csprojResolveAssemblyReference.cache
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core\obj\Debug\RallyCat.Core.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core\obj\Debug\RallyCat.Core.pdb
+C:\Users\cheng\Documents\RallyCat\RallyCat.Core\bin\Debug\FluentData.dll
