@@ -9,7 +9,7 @@ using FluentData;
 
 namespace RallyCat.Core.DataAccess
 {
-    public class RallyCatDbContext
+    public class RallyCatDbContext 
     {
         public static void SetConnectionString(string connectionStringName)
         {

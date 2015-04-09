@@ -7,3 +7,6 @@ C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\RallyCat.Core.Te
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\RallyCat.Core.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\FluentData.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\RallyCat.Core.pdb
+C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\Rally.RestApi.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\HtmlAgilityPack.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\Rally.RestApi.pdb

@@ -1,6 +1,7 @@
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\RallyCat.WebApi.Tests.dll.config
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\RallyCat.WebApi.Tests.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\RallyCat.WebApi.Tests.pdb
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\Interop.SHDocVw.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\Microsoft.Data.Edm.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\Microsoft.Data.OData.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
@@ -15,8 +16,14 @@ C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.Raz
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.WebPages.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\WatiN.Core.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.Http.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.Optimization.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\FluentData.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.Http.Tracing.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\RallyCat.Core.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\Rally.RestApi.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\HtmlAgilityPack.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\RallyCat.WebApi.pdb
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\Newtonsoft.Json.xml
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.Helpers.xml
@@ -29,7 +36,11 @@ C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.Htt
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\Microsoft.Data.Edm.xml
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\Microsoft.Data.OData.xml
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Spatial.xml
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\WatiN.Core.xml
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.Http.xml
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\System.Web.Http.Tracing.xml
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\RallyCat.Core.pdb
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\Rally.RestApi.pdb
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\de\Microsoft.Data.Edm.resources.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\es\Microsoft.Data.Edm.resources.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\fr\Microsoft.Data.Edm.resources.dll
