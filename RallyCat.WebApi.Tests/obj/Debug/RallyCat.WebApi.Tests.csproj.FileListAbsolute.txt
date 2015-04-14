@@ -71,3 +71,4 @@ C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\zh-Hant\System
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\obj\Debug\RallyCat.WebApi.Tests.csprojResolveAssemblyReference.cache
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\obj\Debug\RallyCat.WebApi.Tests.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\obj\Debug\RallyCat.WebApi.Tests.pdb
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi.Tests\bin\Debug\Resources\blocked.png

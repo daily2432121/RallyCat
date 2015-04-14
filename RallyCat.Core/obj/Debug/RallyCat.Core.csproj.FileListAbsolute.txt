@@ -7,3 +7,7 @@ C:\Users\cheng\Documents\RallyCat\RallyCat.Core\bin\Debug\Rally.RestApi.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core\bin\Debug\Rally.RestApi.pdb
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core\obj\Debug\RallyCat.Core.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core\obj\Debug\RallyCat.Core.pdb
+C:\Users\cheng\Documents\RallyCat\RallyCat.Core\obj\Debug\RallyCat.Core.csprojResolveAssemblyReference.cache
+C:\Users\cheng\Documents\RallyCat\RallyCat.Core\bin\Debug\Resources\blocked.png
+C:\Users\cheng\Documents\RallyCat\RallyCat.Core\obj\Debug\RallyCat.Core.Resources.resources
+C:\Users\cheng\Documents\RallyCat\RallyCat.Core\obj\Debug\RallyCat.Core.csproj.GenerateResource.Cache

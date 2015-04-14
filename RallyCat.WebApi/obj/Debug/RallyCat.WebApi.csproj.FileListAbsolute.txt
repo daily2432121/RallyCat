@@ -75,3 +75,4 @@ C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\zh-Hant\System.Spatial.res
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\obj\Debug\RallyCat.WebApi.csprojResolveAssemblyReference.cache
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\obj\Debug\RallyCat.WebApi.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\obj\Debug\RallyCat.WebApi.pdb
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\Resources\blocked.png

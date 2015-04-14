@@ -10,3 +10,4 @@ C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\RallyCat.Core.pd
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\Rally.RestApi.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\HtmlAgilityPack.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\Rally.RestApi.pdb
+C:\Users\cheng\Documents\RallyCat\RallyCat.Core.Tests\bin\Debug\Resources\blocked.png
