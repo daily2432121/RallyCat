@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,6 +57,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Configuration\RallyGlobalConfiguration.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Helpers\GraphicsHelper.cs" />
     <Compile Include="Interfaces\IRallySlackMappingRepository.cs" />
     <Compile Include="DataAccess\RallySlackMappingRepository.cs" />
     <Compile Include="Interfaces\IRallyGlobalConfigurationRepository.cs" />
