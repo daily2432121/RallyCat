@@ -76,3 +76,16 @@ C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\zh-Hant\System.Spatial.res
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\obj\Debug\RallyCat.WebApi.csprojResolveAssemblyReference.cache
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\obj\Debug\RallyCat.WebApi.dll
 C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\obj\Debug\RallyCat.WebApi.pdb
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\Microsoft.WindowsAzure.Storage.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\Microsoft.Data.Services.Client.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\Microsoft.WindowsAzure.Storage.xml
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\Microsoft.Data.Services.Client.xml
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\de\Microsoft.Data.Services.Client.resources.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\es\Microsoft.Data.Services.Client.resources.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\fr\Microsoft.Data.Services.Client.resources.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\it\Microsoft.Data.Services.Client.resources.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\ja\Microsoft.Data.Services.Client.resources.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\ko\Microsoft.Data.Services.Client.resources.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\ru\Microsoft.Data.Services.Client.resources.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\zh-Hans\Microsoft.Data.Services.Client.resources.dll
+C:\Users\cheng\Documents\RallyCat\RallyCat.WebApi\bin\zh-Hant\Microsoft.Data.Services.Client.resources.dll

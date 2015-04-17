@@ -27,6 +27,7 @@ namespace RallyCat.WebApi.Controllers
         public IDbContext _dbContext;
         private RallyService _rallyService;
         private GraphicService _graphicService;
+        private AzureService _azureService;
         public RallyController()
         {
             RallyCatDbContext.SetConnectionString("RallyCatConnection");
@@ -34,6 +35,7 @@ namespace RallyCat.WebApi.Controllers
             RallyBackgroundData.SetDbContext(_dbContext);
             _rallyService = new RallyService();
             _graphicService = new GraphicService();
+            _azureService = new AzureService(RallyBackgroundData.Instance);
         }
         [Route("api/Rally/Details")]
         [HttpPost]
@@ -45,16 +47,15 @@ namespace RallyCat.WebApi.Controllers
 
             SlackMessage msg = SlackMessage.FromString(str);
             msg.MessageType = SlackMessageType.OutgoingWebhooks;
-            if (str.ToLower().Contains("kanban"))
-            {
-                //return GetKanban2(msg.ChannelName);
-                return new SlackResponseVM("Not supported yet.");
-            }
             Regex regex = new Regex(@"((US|Us|uS|us)\d{1,9})|(((dE|de|De|DE)\d{1,9}))");
             Match m = regex.Match(msg.Text);
 
             if (!m.Success)
             {
+                if (msg.Text.ToLower().Contains("kanban"))
+                {
+                    return new SlackResponseVM(GetKanban(msg.ChannelName));
+                }
                 return new SlackResponseVM("_Whuaaat?_" );
             }
 
@@ -62,8 +63,8 @@ namespace RallyCat.WebApi.Controllers
             string result = GetItem(formattedId, msg.ChannelName);
             return new SlackResponseVM (result);
         }
-
-        public Image GetKanban(string channelName)
+        [Route("api/Rally/Kanban/{channelName}")]
+        public string GetKanban(string channelName)
         {
             var mappings = RallyBackgroundData.Instance.RallySlackMappings;
             var map = mappings.Find(o => o.Channels.Contains(channelName.ToLower()));
@@ -87,10 +88,10 @@ namespace RallyCat.WebApi.Controllers
             //    "ScheduleState",
             //    "Owner"
             //};
-            var temp =  list.Select(o => KanbanItem.ConvertFrom(o, map.KanbanSortColumn)).Cast<KanbanItem>();
             var kanbanGroup = list.Select(o=> KanbanItem.ConvertFrom(o,map.KanbanSortColumn)).Cast<KanbanItem>().GroupBy(k=>k.KanbanState).ToDictionary(k=>k.Key, o=>o.OrderBy(t=>t.AssignedTo).ToList());
             Image img = _graphicService.DrawWholeKanban(500, 20, 20, 20, 100, kanbanGroup);
-            return img;
+            var uploaded = _azureService.Upload(img, string.Format("{0}-kanban", channelName));
+            return uploaded;
         }
 
         public string GetItem(string formattedId, string channelName)
