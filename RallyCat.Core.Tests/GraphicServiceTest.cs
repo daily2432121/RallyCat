@@ -16,12 +16,12 @@ namespace RallyCat.Core.Tests
         public void DrawKanbanItemFrameBlockedTest()
         {
             GraphicService service= new GraphicService();
-            KanbanItem item = new KanbanItem("US1234", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas", "blockedblockedblockedblockedblockedblockedblockedblockedblockedblockedblocked");
-            var rec = service.GetSizeOfKanbanItemFrame(new Point(0, 0), 400, 20, 20, item);
+            KanbanItem item = new KanbanItem("C1","US1234", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas", "blockedblockedblockedblockedblockedblockedblockedblockedblockedblockedblocked");
+            var rec = service.GetKanbanItemSize(new Point(0, 0), 400, 20, 20, item);
             Bitmap image = new Bitmap(rec.Width, rec.Height);
             using (var g = Graphics.FromImage(image))
             {
-                service.DrawKanbanItemFrame(g, new Point(0, 0), 400, 20, 20, item);
+                service.DrawOneKanbanItem(g, new Point(0, 0), 400, 20, 20, item);
                 image.Save(@"c:\temp\pngTempBlocked.png", ImageFormat.Png);
                 image.Dispose();
             }
@@ -35,12 +35,12 @@ namespace RallyCat.Core.Tests
         public void DrawKanbanItemFrameNonBlockedTest()
         {
             GraphicService service = new GraphicService();
-            KanbanItem item = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
-            var rec = service.GetSizeOfKanbanItemFrame(new Point(0, 0), 400, 20, 20, item);
+            KanbanItem item = new KanbanItem("C1","US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
+            var rec = service.GetKanbanItemSize(new Point(0, 0), 400, 20, 20, item);
             Image image = new Bitmap(rec.Width, rec.Height);
             using (var g = Graphics.FromImage(image))
             {
-                service.DrawKanbanItemFrame(g, new Point(0, 0), 400, 20, 20, item);
+                service.DrawOneKanbanItem(g, new Point(0, 0), 400, 20, 20, item);
                 image.Save(@"c:\temp\pngTempNonBlocked.png", ImageFormat.Png);
             }
 
@@ -50,8 +50,8 @@ namespace RallyCat.Core.Tests
         public void DrawOneKanbanColumnTest()
         {
             GraphicService service = new GraphicService();
-            KanbanItem item0 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
-            KanbanItem item1 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas","BLOCKED BLOCKED BLOCKED BBBBBBBB");
+            KanbanItem item0 = new KanbanItem("C1","US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
+            KanbanItem item1 = new KanbanItem("C1","US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas","BLOCKED BLOCKED BLOCKED BBBBBBBB");
             //KanbanItem item2 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
             //KanbanItem item3 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
             //KanbanItem item4 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
@@ -73,15 +73,15 @@ namespace RallyCat.Core.Tests
         public void DrawWholeKanbanTest()
         {
             GraphicService service = new GraphicService();
-            KanbanItem item0 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
-            KanbanItem item1 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas", "BLOCKED BLOCKED BLOCKED BBBBBBBB");
-            KanbanItem item2 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
-            KanbanItem item3 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxefadsfasefaefasdfsdfsafas");
-            KanbanItem item4 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxdsdfgsdfgsfgsdsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
-            KanbanItem item5 = new KanbanItem("US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
-            KanbanItem item6 = new KanbanItem("US4321", "Cheng Huang", "aabbccfaefasdfsdfsafas", "abeedde");
+            KanbanItem item0 = new KanbanItem("C1", "US1234", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
+            KanbanItem item1 = new KanbanItem("C1", "DE4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas", "BLOCKED BLOCKED BLOCKED BBBBBBBB");
+            KanbanItem item2 = new KanbanItem("C2", "US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxddsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
+            KanbanItem item3 = new KanbanItem("C2", "US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxefadsfasefaefasdfsdfsafas");
+            KanbanItem item4 = new KanbanItem("C3", "US22221", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxdsdfgsdfgsfgsdsssseeqqzxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
+            KanbanItem item5 = new KanbanItem("C4", "US4321", "Cheng Huang", "aabbccddxxxxxxxxxxxxxxxxxxxxxxxxxbbbbdeevsdfaefefadsfasefaefasdfsdfsafas");
+            KanbanItem item6 = new KanbanItem("C4", "US4321", "Cheng Huang", "aabbccfaefasdfsdfsafas", "abeedde");
             List<KanbanItem> itemg1 = new List<KanbanItem>(){item0,item1};
-            List<KanbanItem> itemg2 = new List<KanbanItem>(){item2, item3};
+            List<KanbanItem> itemg2 = new List<KanbanItem>(){item2, item3, item0, item5};
             List<KanbanItem> itemg3 = new List<KanbanItem>(){item4};
             List<KanbanItem> itemg4 = new List<KanbanItem>(){item5, item6};
             Dictionary<string, List<KanbanItem>> dict =new Dictionary<string, List<KanbanItem>>();

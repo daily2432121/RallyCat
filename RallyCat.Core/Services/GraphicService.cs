@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -13,33 +14,39 @@ namespace RallyCat.Core.Services
 {
     public class GraphicService
     {
-        public Rectangle GetSizeOfKanbanItemFrame(Point startPoint, int recWidth, int headerHeight, int textMargin, KanbanItem item)
+        public Rectangle GetKanbanItemSize(Point startPoint, int recWidth, int headerHeight, int textMargin, KanbanItem item)
         {
             Image img =new Bitmap(1,1);
             using (var g = Graphics.FromImage(img))
             {
-                float currentBottom = 0;
+                float currentHeight = 0;
                 var halfMargin = textMargin / 2;
                 Rectangle headerRec = new Rectangle(new Point(startPoint.X, startPoint.Y), new Size(recWidth + 1, headerHeight));
                 Font font = new Font("Segoe UI", 20, FontStyle.Regular);
-                currentBottom += headerRec.Bottom;
-                currentBottom += textMargin;
+                
+                currentHeight += headerRec.Bottom + halfMargin;
                 var formattedIdSize = g.MeasureString(item.FormattedId, font);
                 var assignedToSize = g.MeasureString(item.AssignedTo, font);
-                currentBottom += formattedIdSize.Height + textMargin;
+
                 var descriptionSize = g.MeasureString(item.StoryDescription, font, headerRec.Width - 2 * textMargin);
-                currentBottom += assignedToSize.Height + textMargin;
+                RectangleF recDescription = new RectangleF(new PointF(headerRec.Left + textMargin, currentHeight + textMargin), descriptionSize);
+
+                currentHeight += formattedIdSize.Height + textMargin;
+                currentHeight += assignedToSize.Height + textMargin;
+                currentHeight += recDescription.Height + textMargin;
+                
                 if (item.IsBlocked)
                 {
                     Image blockedIcon = Resources.blocked;
                     var blockedReasonSize = g.MeasureString(item.BlockedReason, font, headerRec.Width - 2 * textMargin - blockedIcon.Width - halfMargin);
                     SizeF blockedReasonBackgroundSize = new SizeF(headerRec.Width - 2 * textMargin, blockedReasonSize.Height);
                     
-                    currentBottom += blockedReasonBackgroundSize.Height + textMargin;
+                    currentHeight += blockedReasonBackgroundSize.Height +textMargin;
                 }
-                currentBottom += descriptionSize.Height + textMargin;
+                currentHeight += halfMargin;
+                //currentBottom += halfMargin;
                 //Frame, wire frame rectangle
-                Rectangle recFrame = new Rectangle(startPoint, new Size(recWidth, (int)currentBottom));
+                Rectangle recFrame = new Rectangle(startPoint, new Size(recWidth, (int)currentHeight));
                 return recFrame;
             }
         }
@@ -91,10 +98,10 @@ namespace RallyCat.Core.Services
 
             foreach (KanbanItem item in items)
             {
-                var rec = DrawKanbanItemFrame(g, next, rectWidth, headerHeight, textMargin, item);
-                next.Y = rec.Height + 2 * stackItemMargin + categoryHeight;
+                var rec = DrawOneKanbanItem(g, next, rectWidth, headerHeight, textMargin, item);
+                next.Y = rec.Bottom + stackItemMargin ;
             }
-            return new Rectangle(startPoint, new Size(stackItemMargin + rectWidth + stackItemMargin, next.Y - 2 * stackItemMargin - categoryHeight));
+            return new Rectangle(startPoint, new Size(stackItemMargin + rectWidth + stackItemMargin, next.Y));
         }
 
         public Rectangle GetOneKanbanColumnSize(Point startPoint, int rectWidth, int headerHeight, int stackItemMargin,
@@ -105,20 +112,20 @@ namespace RallyCat.Core.Services
             next.X += stackItemMargin;
             next.Y += categoryHeight;
             next.Y += stackItemMargin;
-            
+            int lastHeight = 0;
             foreach (KanbanItem item in items)
             {
-                var rec = GetSizeOfKanbanItemFrame(next, rectWidth, headerHeight, textMargin, item);
-                next.Y = rec.Height + 2 * stackItemMargin + categoryHeight;
+                var rec = GetKanbanItemSize(next, rectWidth, headerHeight, textMargin, item);
+                next.Y = rec.Height +  stackItemMargin ;
             }
 
-            return new Rectangle(startPoint, new Size(stackItemMargin + rectWidth + stackItemMargin, next.Y - 2 * stackItemMargin - categoryHeight));
+            return new Rectangle(startPoint, new Size(stackItemMargin + rectWidth + stackItemMargin, next.Y ));
         }
 
 
-        public Rectangle DrawKanbanItemFrame(Graphics g, Point startPoint, int recWidth, int headerHeight, int textMargin, KanbanItem item)
+        public Rectangle DrawOneKanbanItem(Graphics g, Point startPoint, int recWidth, int headerHeight, int textMargin, KanbanItem item)
         {
-            float currentBottom = 0;
+            float currentHeight = 0;
 
             var halfMargin = textMargin/2;
 
@@ -126,31 +133,33 @@ namespace RallyCat.Core.Services
             Brush headerBrush=new SolidBrush(Color.DarkOrange);
             Rectangle headerRec = new Rectangle(new Point(startPoint.X, startPoint.Y), new Size(recWidth+1, headerHeight));
             
-            Font font = new Font("Segoe UI", 20, FontStyle.Bold);
-
-            currentBottom += headerRec.Bottom;
-
+            Font font = new Font("Segoe UI", 20, FontStyle.Regular);
+            Debug.WriteLine("Draw:currentHeight0:"+currentHeight);
+            currentHeight = headerRec.Bottom + halfMargin;
+            Debug.WriteLine("Draw:currentHeight1:" + currentHeight);
+            //FormattedId
             Brush formattedIdBrush = new SolidBrush(Color.DeepSkyBlue);
-            g.DrawString(item.FormattedId, font, formattedIdBrush, headerRec.Left + textMargin, currentBottom + textMargin);
-
-            currentBottom += textMargin;
-
             var formattedIdSize = g.MeasureString(item.FormattedId, font);
+            g.DrawString(item.FormattedId, font, formattedIdBrush, headerRec.Left + textMargin, currentHeight );
+
+            currentHeight += formattedIdSize.Height + textMargin;
+            Debug.WriteLine("Draw:currentHeight2:" + currentHeight);
+            //AssignedToId
             Brush assignedToBrush = new SolidBrush(Color.Black);
             var assignedToSize = g.MeasureString(item.AssignedTo, font);
-            g.DrawString(item.AssignedTo, font, assignedToBrush, headerRec.Left + textMargin, currentBottom + formattedIdSize.Height + textMargin);
+            g.DrawString(item.AssignedTo, font, assignedToBrush, headerRec.Left + textMargin, currentHeight);
 
-            currentBottom += formattedIdSize.Height + textMargin;
-
-
+            currentHeight += assignedToSize.Height + textMargin;
+            Debug.WriteLine("Draw:currentHeight3:" + currentHeight);
+            //Description
             Brush descriptionBrush = new SolidBrush(Color.Black);
             var descriptionSize = g.MeasureString(item.StoryDescription, font, headerRec.Width - 2*textMargin);
-            RectangleF recDescription = new RectangleF(new PointF(headerRec.Left+textMargin, currentBottom + assignedToSize.Height + textMargin), descriptionSize);
+            RectangleF recDescription = new RectangleF(new PointF(headerRec.Left + textMargin, currentHeight), descriptionSize);
 
             
             g.DrawString(item.StoryDescription, font, descriptionBrush, recDescription);
-            currentBottom += assignedToSize.Height + textMargin;
-
+            currentHeight += recDescription.Height + textMargin;
+            Debug.WriteLine("Draw:currentHeight4:" + currentHeight);
             if (item.IsBlocked)
             {
                 Image blockedIcon = Resources.blocked;
@@ -158,24 +167,24 @@ namespace RallyCat.Core.Services
                 var blockedReasonSize = g.MeasureString(item.BlockedReason, font, headerRec.Width - 2 * textMargin - blockedIcon.Width - halfMargin);
                 SizeF blockedReasonBackgroundSize = new SizeF(headerRec.Width -2 * textMargin,blockedReasonSize.Height);
                 Brush blockedReasonBackgroundBrush = new SolidBrush(Color.LightGray);
-                g.FillRectangle(blockedReasonBackgroundBrush, new RectangleF(new PointF(headerRec.Left + textMargin, currentBottom + descriptionSize.Height + textMargin), blockedReasonBackgroundSize));
+                g.FillRectangle(blockedReasonBackgroundBrush, new RectangleF(new PointF(headerRec.Left + textMargin, currentHeight), blockedReasonBackgroundSize));
 
                 Brush blockedReasonBrush = new SolidBrush(Color.Black);
-                RectangleF recBlockedReason = new RectangleF(new PointF(headerRec.Left + blockedIcon.Width + textMargin + halfMargin, currentBottom + descriptionSize.Height + textMargin), blockedReasonSize);
+                RectangleF recBlockedReason = new RectangleF(new PointF(headerRec.Left + blockedIcon.Width + textMargin + halfMargin, currentHeight), blockedReasonSize);
                 g.DrawString(item.BlockedReason,font,blockedReasonBrush,recBlockedReason );
 
-                RectangleF recBlockedIconSmall = new RectangleF(headerRec.Left + textMargin + halfMargin, currentBottom + descriptionSize.Height + textMargin + recBlockedReason.Height / 2 - blockedIcon.Height / 2, blockedIcon.Width, blockedIcon.Height);
+                RectangleF recBlockedIconSmall = new RectangleF(headerRec.Left + textMargin + halfMargin, currentHeight  + recBlockedReason.Height / 2 - blockedIcon.Height / 2, blockedIcon.Width, blockedIcon.Height);
                 g.DrawImage(blockedIcon, recBlockedIconSmall);
-                
-                currentBottom += blockedReasonBackgroundSize.Height + textMargin;
-            }
-            currentBottom += descriptionSize.Height + textMargin;
 
+                currentHeight += blockedReasonBackgroundSize.Height + textMargin;
+            }
+            
+            currentHeight += halfMargin;
             //Frame, wire frame rectangle
 
             Pen framePen = item.IsBlocked ? new Pen(Color.DarkRed, 2) : new Pen(Color.Gray, 2);
             //g.Clear(Color.White);
-            Rectangle recFrame = new Rectangle(startPoint,new Size(recWidth,(int)currentBottom -startPoint.Y));
+            Rectangle recFrame = new Rectangle(startPoint,new Size(recWidth,(int)currentHeight -startPoint.Y));
             g.DrawRectangle(framePen, recFrame);
             g.FillRectangle(headerBrush, headerRec);
 

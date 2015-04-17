@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,8 +10,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http;
 using FluentData;
+using Microsoft.SqlServer.Server;
 using RallyCat.Core;
 using RallyCat.Core.DataAccess;
+using RallyCat.Core.Rally;
 using RallyCat.Core.Services;
 using RallyCat.WebApi.Models.Slack;
 using RallyCat.WebApi.ViewModels;
@@ -22,12 +25,15 @@ namespace RallyCat.WebApi.Controllers
         //
         // GET: /Rally/
         public IDbContext _dbContext;
+        private RallyService _rallyService;
+        private GraphicService _graphicService;
         public RallyController()
         {
             RallyCatDbContext.SetConnectionString("RallyCatConnection");
             _dbContext = RallyCatDbContext.QueryDb();
             RallyBackgroundData.SetDbContext(_dbContext);
-
+            _rallyService = new RallyService();
+            _graphicService = new GraphicService();
         }
         [Route("api/Rally/Details")]
         [HttpPost]
@@ -57,7 +63,7 @@ namespace RallyCat.WebApi.Controllers
             return new SlackResponseVM (result);
         }
 
-        private string GetItem(string formattedId, string channelName)
+        public Image GetKanban(string channelName)
         {
             var mappings = RallyBackgroundData.Instance.RallySlackMappings;
             var map = mappings.Find(o => o.Channels.Contains(channelName.ToLower()));
@@ -65,8 +71,43 @@ namespace RallyCat.WebApi.Controllers
             {
                 throw new ObjectNotFoundException("Cannot found channel name mapping for " + channelName);
             }
-            RallyService service = new RallyService();
-            var result = service.GetRallyItem(map, formattedId);
+            
+            var result = _rallyService.GetKanban(map);
+            var list = result;
+            if (list == null)
+            {
+                return null;
+            }
+            //requestFields = new List<string>()
+            //{
+            //    "Name",
+            //    "ObjectID",
+            //    "FormattedID",
+            //    "Description",
+            //    "ScheduleState",
+            //    "Owner"
+            //};
+            var temp =  list.Select(o => KanbanItem.ConvertFrom(o, map.KanbanSortColumn)).Cast<KanbanItem>();
+            var kanbanGroup = list.Select(o=> KanbanItem.ConvertFrom(o,map.KanbanSortColumn)).Cast<KanbanItem>().GroupBy(k=>k.KanbanState).ToDictionary(k=>k.Key, o=>o.OrderBy(t=>t.AssignedTo).ToList());
+            Image img = _graphicService.DrawWholeKanban(500, 20, 20, 20, 100, kanbanGroup);
+            return img;
+        }
+
+        public string GetItem(string formattedId, string channelName)
+        {
+            
+            if (formattedId.StartsWith("DE", StringComparison.InvariantCultureIgnoreCase))
+            {
+                
+            }
+            var mappings = RallyBackgroundData.Instance.RallySlackMappings;
+            var map = mappings.Find(o => o.Channels.Contains(channelName.ToLower()));
+            if (map == null)
+            {
+                throw new ObjectNotFoundException("Cannot found channel name mapping for " + channelName);
+            }
+            
+            var result = _rallyService.GetRallyItemById(map, formattedId);
             var item = result.Results.FirstOrDefault();
             if (item == null)
             {
@@ -77,6 +118,10 @@ namespace RallyCat.WebApi.Controllers
             return "_" + GetWelcomeMsg() + "_" + "\r\n\r\n" + "*" + itemName.ToUpper() + "*\r\n" + "*" + itemName + "*" + "\r\n" + itemDescription;
 
         }
+
+
+
+
 
         private string GetWelcomeMsg()
         {
