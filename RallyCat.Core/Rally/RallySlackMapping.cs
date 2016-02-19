@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RallyCat.Core.DataAccess;
 
 namespace RallyCat.Core.Rally
 {
@@ -18,6 +19,4 @@ namespace RallyCat.Core.Rally
         public bool EnableKanban { get; set; }
         public List<string> Channels { get; set; }
     }
-
-
 }

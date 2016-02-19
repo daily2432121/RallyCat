@@ -8,8 +8,6 @@ namespace RallyCat.Core.Configuration
 {
     public class RallyGlobalConfiguration
     {
-        public string RallyUrl { get; set; }
-        public string SlackUrl { get; set; }
         public bool EnableGoogleSearch { get; set; }
         public string ErrorSlackResponse { get; set; }
         public string NoResultSlackResponse { get; set; }
