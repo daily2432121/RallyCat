@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
-using FluentData;
 using Rally.RestApi;
 using Rally.RestApi.Response;
 using RallyCat.Core.DataAccess;
@@ -65,7 +64,6 @@ namespace RallyCat.Core.Services
         public List<dynamic> GetKanban(RallySlackMapping map)
         {
             
-            RallyRestApi restApi = _pool.GetApi(map.UserName, map.Password);
             var queryType = "Iteration";
             var query = new Query(string.Format("(StartDate <= {0})", DateTime.Now.ToString("o")));
             var requestFields = new List<string>() { "Name", "StartDate", "Project", "EndDate" };

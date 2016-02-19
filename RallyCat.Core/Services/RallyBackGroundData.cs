@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentData;
+using System.Web;
 using RallyCat.Core.Configuration;
 using RallyCat.Core.DataAccess;
 using RallyCat.Core.Rally;
@@ -15,21 +17,18 @@ namespace RallyCat.Core.Services
     public class RallyBackgroundData
     {
         private static RallyBackgroundData _instance;
-        private static IDbContext _dbContext;
+        const string jsonFile = "config.json";
+        private static string _filePath = "";
         public RallyGlobalConfiguration RallyGlobalConfiguration { get ; private set; }
         public List<RallySlackMapping> RallySlackMappings { get; private set; }
 
         public static DateTime LastUpdatedTime { get; private set; }
         private static object _lock = new object();
-        private RallyBackgroundData(IDbContext context)
+        private RallyBackgroundData()
         {
-            SetDbContext(context);
+            _filePath = HttpContext.Current != null ? HttpRuntime.AppDomainAppPath : Path.GetDirectoryName(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }
 
-        public static void SetDbContext(IDbContext context)
-        {
-            _dbContext = context;
-        }
 
         public static RallyBackgroundData Instance
         {
@@ -37,7 +36,7 @@ namespace RallyCat.Core.Services
             {
                 if (_instance == null)
                 {
-                    _instance = new RallyBackgroundData(_dbContext);
+                    _instance = new RallyBackgroundData();
                     _instance.LoadAll();
                     ThreadPool.QueueUserWorkItem(AutoRefresh);
                 }
@@ -50,14 +49,16 @@ namespace RallyCat.Core.Services
         {
             lock (_lock)
             {
-                _instance = new RallyBackgroundData(_dbContext);
+                _instance = new RallyBackgroundData();
                 _instance.LoadAll();    
             }
         }
         private void LoadAll()
         {
-            RallyGlobalConfiguration = GetRallyGlobalConfiguration();
-            RallySlackMappings = GetRallySlackMappings();
+            ConfigRepository repo = new ConfigRepository();
+            var config = repo.GetConfig(_filePath);
+            RallyGlobalConfiguration = config.GlobalConfig;
+            RallySlackMappings = config.RallySlackMappings;
             LastUpdatedTime = DateTime.Now;
         }
 
@@ -69,7 +70,7 @@ namespace RallyCat.Core.Services
                 {
                     if (DateTime.Now - LastUpdatedTime >= TimeSpan.FromSeconds(20))
                     {
-                        RallyBackgroundData newData = new RallyBackgroundData(_dbContext);
+                        RallyBackgroundData newData = new RallyBackgroundData();
                         newData.LoadAll();
 
                         lock (_lock)
@@ -83,26 +84,6 @@ namespace RallyCat.Core.Services
             }
         }
 
-        private RallyGlobalConfiguration GetRallyGlobalConfiguration()
-        {
-            if (_dbContext == null)
-            {
-                throw new ArgumentNullException("DBContext is null.");
-            }
-            RallyGlobalConfigurationRepository repo = new RallyGlobalConfigurationRepository(_dbContext);
-            var result = repo.GetItem();
-            return result.Object;
-        }
 
-        private List<RallySlackMapping> GetRallySlackMappings()
-        {
-            if (_dbContext == null)
-            {
-                throw new ArgumentNullException("DBContext is null.");
-            }
-            RallySlackMappingRepository repo = new RallySlackMappingRepository(_dbContext);
-            var result = repo.GetAll();
-            return result.Object;
-        }
     }
 }
