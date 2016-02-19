@@ -30,9 +30,6 @@ namespace RallyCat.WebApi.Controllers
         private AzureService _azureService;
         public RallyController()
         {
-            RallyCatDbContext.SetConnectionString("RallyCatConnection");
-            _dbContext = RallyCatDbContext.QueryDb();
-            RallyBackgroundData.SetDbContext(_dbContext);
             _rallyService = new RallyService();
             _graphicService = new GraphicService();
             _azureService = new AzureService(RallyBackgroundData.Instance);
@@ -56,11 +53,15 @@ namespace RallyCat.WebApi.Controllers
                 {
                     return new SlackResponseVM(GetKanban(msg.ChannelName));
                 }
-                return new SlackResponseVM("_Whuaaat?_" );
+                return new SlackResponseVM(RallyBackgroundData.Instance.RallyGlobalConfiguration.ErrorSlackResponse);
             }
 
             string formattedId = m.Groups[0].Value;
             string result = GetItem(formattedId, msg.ChannelName);
+            if (result == null)
+            {
+                return new SlackResponseVM(RallyBackgroundData.Instance.RallyGlobalConfiguration.NoResultSlackResponse);
+            }
             return new SlackResponseVM (result);
         }
         [Route("api/Rally/Kanban/{channelName}")]
